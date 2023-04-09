@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;800&display=swap');
+
+:root{
+    --light-gray: #dfdfdfcc;
+    --light: #FCFFE7;
+    --blue: #2B3467;
+    --sky-blue: #BAD7E9;
+    --red: #EB455F;
+
+}
+
+*,
+::after,
+::before{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    font-size: 16px;
+}
+
+body{
+    background-color: var(--light-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 1rem;
+    font-family: 'Rubik', sans-serif;
+}
+
+.editor{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light);
+    width: 100%;
+    height: 80%;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    padding: .5rem;
+}
+
+.editor__image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 2 0 5%;
+    background-color: var(--blue);
+}
+
+.editor__file{
+    width: 80%;
+    height: 20%;
+    background-color: var(--red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+    color: var(--light);
+    transition: all .5s;
+}
+
+.editor__file > p{
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.editor__file > input{
+    cursor: pointer;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.editor__file:hover{
+    background-color: var(--light);
+    color: var(--blue);
+}
+
+.editor__options{
+    padding: .3rem;
+    width: 100%;
+    flex: 0 0 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--sky-blue);
+}
+
+.editor__options :nth-child(2){
+    margin: 0 1.5rem;
+}
+
+.editor__options > i{
+    color: var(--blue);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: .7rem;
+    border-radius: 5px;
+    transition: all .5s;
+}
+
+.editor__options > i:hover{
+    background-color: var(--red);
+}
+
+.editor__functions{
+    flex: 1 0 5%;
+    background-color: var(--light-gray);
+}
+
+.editor__picture{
+    width: 100%;
+    height: 100%;
+}
+
+.d-none{
+    display: none;
+}
+
+
