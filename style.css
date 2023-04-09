@@ -65,13 +65,15 @@ body{
     transition: all .5s;
 }
 
+
+
 .editor__picture{
     width: 100%;
     height: 100%;
 }
 
 .editor__file > p{
-    width: 100%;
+    margin-left: 1rem;
     text-align: center;
     font-weight: 500;
 }
@@ -136,6 +138,21 @@ body{
 .editor__close__image:hover{
     transform: rotate(90deg);
     transition: all .5s;
+}
+
+.drag__over::before{
+    content: 'Drop here';
+    background-color: var(--sky-blue);
+    color: var(--blue);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed var(--blue);
 }
 
 .d-none{
