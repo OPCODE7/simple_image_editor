@@ -26,7 +26,30 @@ $resizeImage.innerHTML = `
     <i class="fa-solid fa-reply editor__arrow__button"></i>
 `;
 
-let currentRotate = 0, widthEditorImage = $previewImage.parentElement.clientWidth, heightEditorImage = $previewImage.parentElement.clientHeight;
+const $filterImage= d.createElement("div");
+$filterImage.classList.add("editor__filters");
+
+$filterImage.innerHTML+= `
+    <div>
+        <p class="editor__filters__selectintensity">Intensidad del filtro</p>
+        <input type="range"  min="0" max="200" step="1" id="filter-intensity" value="100" disabled>
+    </div>
+    <i class="fa-solid fa-reply editor__arrow__button"></i>
+    <button class="editor__filter__button" id="gray-scale">GrayScale</button>
+    <button class="editor__filter__button" id="blur">Blur</button>
+    <button class="editor__filter__button" id="sepia">Sepia</button>
+    <button class="editor__filter__button" id="saturate">Saturate</button>
+    <button class="editor__filter__button" id="opacity">Opacity</button>
+    <button class="editor__filter__button" id="hue-rotate">Hue</button>
+    <button class="editor__filter__button" id="constrast">Contrast</button>
+    <button class="editor__filter__button" id="invert">Invert</button>
+`;
+
+let currentRotate = 0, widthEditorImage = $previewImage.parentElement.clientWidth, heightEditorImage = $previewImage.parentElement.clientHeight,whoFilterApply= {
+    filter: "",
+    unit:""
+};
+
 
 
 d.body.appendChild($modalErrorHandler);
@@ -48,6 +71,10 @@ d.addEventListener("input",e => {
         $previewImage.style.rotate= `${e.target.value}deg`;
         $previewImage.style.scale= `1.1`;
     }
+
+    if(e.target.matches("#filter-intensity")){
+        $previewImage.style.filter= `${whoFilterApply.filter}(${e.target.value}${whoFilterApply.unit})`;
+    }
 });
 
 d.addEventListener("click", e => {
@@ -59,7 +86,7 @@ d.addEventListener("click", e => {
         $buttonCloseImage.style.display = "none";
         $previewImage.removeAttribute("style");
         if($editorTools.children.length>0){
-            $editorTools.removeChild($resizeImage);
+            $editorTools.childNodes.forEach(node => $editorTools.removeChild(node));
         }
     }
 
@@ -69,6 +96,7 @@ d.addEventListener("click", e => {
     }
 
     if (e.target.matches(".fa-crop-simple")) {
+        $editorTools.childNodes.forEach(el => $editorTools.removeChild(el));
         if($previewImage.getAttribute("src").length!==0){
             $editorTools.appendChild($resizeImage);
             $editorTools.querySelector("#straightening").value= "0";
@@ -78,6 +106,26 @@ d.addEventListener("click", e => {
                 $buttonGetFile.classList.remove("active__select__image__animation");
             }, 1000);
         }
+    }
+
+    if(e.target.matches(".fa-brush")){
+        $editorTools.childNodes.forEach(el => $editorTools.removeChild(el));
+
+        if($previewImage.getAttribute("src").length!==0){
+            $editorTools.appendChild($filterImage);
+            $editorTools.querySelector("#filter-intensity").value= "100";
+            $editorTools.querySelector("#filter-intensity").disabled= true;
+        }else{
+            $buttonGetFile.classList.add("active__select__image__animation");
+            setTimeout(() => {
+                $buttonGetFile.classList.remove("active__select__image__animation");
+            }, 1000);
+        }
+    }
+
+    if(e.target.matches(".fa-circle-half-stroke")){
+        $editorTools.childNodes.forEach(el => $editorTools.removeChild(el));
+
     }
 
 
@@ -104,8 +152,48 @@ d.addEventListener("click", e => {
     if (e.target.matches(".fa-reply")) {
         if ($previewImage.classList.contains("flip__horizontal__image")) $previewImage.classList.remove("flip__horizontal__image");
         $previewImage.removeAttribute("style");
-
     }
+
+    $filterImage.querySelectorAll(".editor__filter__button").forEach(button => {
+        if(e.target===button){
+            d.querySelector("#filter-intensity").removeAttribute("disabled");
+            $previewImage.style.filter= `${whoFilterApply.filter}(${$filterImage.querySelector("#filter-intensity").value}${whoFilterApply.unit})`;
+        } 
+    });
+
+    if(e.target.matches("#gray-scale")){
+        whoFilterApply.filter= "grayscale";
+        whoFilterApply.unit= "%";
+    }
+    if(e.target.matches("#blur")){
+        whoFilterApply.filter= "blur";
+        whoFilterApply.unit= "px";
+    }
+    if(e.target.matches("#sepia")){
+        whoFilterApply.filter= "sepia";
+        whoFilterApply.unit= "%";
+    }
+    if(e.target.matches("#saturate")){
+        whoFilterApply.filter= "saturate";
+        whoFilterApply.unit= "%";
+    }
+    if(e.target.matches("#opacity")){
+        whoFilterApply.filter= "opacity";
+        whoFilterApply.unit= "%";
+    }
+    if(e.target.matches("#hue-rotate")){
+        whoFilterApply.filter= "hue-rotate";
+        whoFilterApply.unit= "deg";
+    }
+    if(e.target.matches("#contrast")){
+        whoFilterApply.filter= "contrast";
+        whoFilterApply.unit= "%";
+    }
+    if(e.target.matches("#invert")){
+        whoFilterApply.filter= "invert";
+        whoFilterApply.unit= "%";
+    }
+
 });
 
 d.addEventListener("dragover", e => {

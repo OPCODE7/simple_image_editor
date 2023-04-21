@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;800&display=swap');
 
-:root{
+:root {
     --light-gray: #dfdfdfcc;
     --light: #FCFFE7;
     --blue: #2B3467;
@@ -12,17 +12,17 @@
 
 *,
 ::after,
-::before{
+::before {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
-html{
+html {
     font-size: 16px;
 }
 
-body{
+body {
     background-color: var(--light-gray);
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@ body{
     position: relative;
 }
 
-.editor{
+.editor {
     background-color: var(--light);
     width: 100%;
     height: 90%;
@@ -43,7 +43,7 @@ body{
     padding: .5rem;
 }
 
-.editor__image{
+.editor__image {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,7 +55,7 @@ body{
     overflow: hidden;
 }
 
-.editor__file{
+.editor__file {
     width: 80%;
     height: 20%;
     background-color: var(--red);
@@ -70,18 +70,18 @@ body{
 
 
 
-.editor__picture{
+.editor__picture {
     width: 100%;
     height: 100%;
 }
 
-.editor__file > p{
+.editor__file>p {
     margin-left: 1rem;
     text-align: center;
     font-weight: 500;
 }
 
-.editor__file > input{
+.editor__file>input {
     cursor: pointer;
     z-index: 2;
     width: 100%;
@@ -92,12 +92,12 @@ body{
     left: 0;
 }
 
-.editor__file:hover{
+.editor__file:hover {
     background-color: var(--light);
     color: var(--blue);
 }
 
-.editor__options{
+.editor__options {
     padding: .3rem;
     width: 100%;
     height: 10%;
@@ -106,11 +106,11 @@ body{
     background-color: var(--sky-blue);
 }
 
-.editor__options :nth-child(2){
+.editor__options :nth-child(2) {
     margin: 0 1.5rem;
 }
 
-.editor__options > i{
+.editor__options>i {
     color: var(--blue);
     cursor: pointer;
     font-size: 1.2rem;
@@ -119,21 +119,21 @@ body{
     transition: all .5s;
 }
 
-.editor__options > i:hover{
+.editor__options>i:hover {
     background-color: var(--red);
 }
 
-.editor__tools{
+.editor__tools {
     width: 100%;
     height: 30%;
     background-color: var(--light-gray);
 }
 
-.editor__tools > i{
+.editor__tools>i {
     cursor: pointer;
 }
 
-.editor__close__image{
+.editor__close__image {
     font-size: 1.6rem;
     position: absolute;
     right: 3%;
@@ -143,12 +143,12 @@ body{
     z-index: 9;
 }
 
-.editor__close__image:hover{
+.editor__close__image:hover {
     transform: rotate(90deg);
     transition: all .5s;
 }
 
-.drag__over::before{
+.drag__over::before {
     content: 'Drop here';
     background-color: var(--sky-blue);
     color: var(--blue);
@@ -163,14 +163,14 @@ body{
     border: 3px dashed var(--blue);
 }
 
-.modal__error{
+.modal__error {
     width: 80%;
     height: 40%;
     background-color: var(--light);
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -183,17 +183,17 @@ body{
 }
 
 
-.fa-face-frown{
+.fa-face-frown {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
 
-.modal__error > *{
+.modal__error>* {
     color: var(--blue);
 }
 
 
-.opacity__filter::before{
+.opacity__filter::before {
     content: '';
     z-index: 8;
     position: absolute;
@@ -205,7 +205,7 @@ body{
 
 }
 
-.editor__resize__image{
+.editor__resize__image {
     width: 100%;
     height: 100%;
     display: flex;
@@ -214,59 +214,98 @@ body{
     justify-content: space-evenly;
 }
 
-.editor__rotate__controls__image{
+.editor__rotate__controls__image {
     display: flex;
 }
 
-.editor__arrow__button{
+.editor__arrow__button,
+.editor__filter__button {
     background-color: var(--blue);
     color: var(--light);
     padding: 10px 1.5rem;
     border-radius: 5px;
     cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.editor__arrow__button:hover,
+.editor__filter__button:hover {
+    transform: scale(1.1);
 }
 
 
 
-.fa-arrow-rotate-right{
+.fa-arrow-rotate-right {
     margin: 0 1rem;
 }
 
-.flip__horizontal__image{
+.flip__horizontal__image {
     transform: scaleX(-1);
 }
 
-.d-none{
+.editor__filters {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2vh;
+    padding: 1rem 2rem;
+}
+
+.editor__filters :first-child {
+
+    grid-column: 1/4;
+}
+
+.editor__filters__selectintensity {
+    color: var(--blue);
+    text-align: center;
+}
+
+#filter-intensity {
+    width: 100%;
+}
+
+
+.fa-reply {
+    text-align: center;
+    font-size: 1.1rem;
+    grid-column: 4/5;
+}
+
+.d-none {
     display: none;
 }
 
-.active__select__image__animation{
+.active__select__image__animation {
     animation-name: select-image-animation;
     animation-duration: 1s;
     animation-iteration-count: infinite;
 }
 
 @keyframes select-image-animation {
-    25%{
+    25% {
         background-color: var(--light);
         color: var(--blue);
-        
+
     }
-    50%{
+
+    50% {
         background-color: var(--red);
         color: var(--light);
-        
+
     }
-    75%{
+
+    75% {
         background-color: var(--light);
         color: var(--blue);
     }
-    
-    100%{
+
+    100% {
         background-color: var(--red);
         color: var(--light);
 
     }
 }
-
-
