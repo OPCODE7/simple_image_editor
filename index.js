@@ -18,7 +18,7 @@ $modalErrorHandler.innerHTML = `
 const $resizeImage = d.createElement("div");
 $resizeImage.classList.add("editor__resize__image");
 $resizeImage.innerHTML = `
-    <input type="range" class="" min="-20" max="20" step="1" id="straightening" value="0">
+    <input type="range"  min="-20" max="20" step="1" id="straightening" value="0">
     <div class="editor__rotate__controls__image">
         <i class="fa-solid fa-arrow-rotate-right editor__arrow__button"></i>
         <i class="fa-solid fa-arrows-left-right editor__arrow__button"></i>
@@ -44,16 +44,23 @@ d.addEventListener("change", e => {
 
 d.addEventListener("input",e => {
     if(e.target.matches("#straightening")){
+        
         $previewImage.style.rotate= `${e.target.value}deg`;
         $previewImage.style.scale= `1.1`;
     }
 });
 
 d.addEventListener("click", e => {
+
     if (e.target.matches(".editor__close__image")) {
         $previewImage.classList.add("d-none");
+        $previewImage.src= "";
         $buttonGetFile.classList.remove("d-none");
         $buttonCloseImage.style.display = "none";
+        $previewImage.removeAttribute("style");
+        if($editorTools.children.length>0){
+            $editorTools.removeChild($resizeImage);
+        }
     }
 
     if (e.target.matches("#close-modal")) {
@@ -64,6 +71,7 @@ d.addEventListener("click", e => {
     if (e.target.matches(".fa-crop-simple")) {
         if($previewImage.getAttribute("src").length!==0){
             $editorTools.appendChild($resizeImage);
+            $editorTools.querySelector("#straightening").value= "0";
         }else{
             $buttonGetFile.classList.add("active__select__image__animation");
             setTimeout(() => {
@@ -148,7 +156,7 @@ function previewFile(preview, file) {
 }
 
 function validFile(file) {
-    let allowedExtensions = /(.jpg|.jpeg|.png)$/i;
+    let allowedExtensions = /(.jpg|.jpeg|.png|.webp)$/i;
     return allowedExtensions.test(file) ? true : false;
 }
 
