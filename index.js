@@ -35,14 +35,30 @@ $filterImage.innerHTML+= `
         <input type="range"  min="0" max="200" step="1" id="filter-intensity" value="100" disabled>
     </div>
     <i class="fa-solid fa-reply editor__arrow__button"></i>
-    <button class="editor__filter__button" id="gray-scale">GrayScale</button>
-    <button class="editor__filter__button" id="blur">Blur</button>
-    <button class="editor__filter__button" id="sepia">Sepia</button>
-    <button class="editor__filter__button" id="saturate">Saturate</button>
-    <button class="editor__filter__button" id="opacity">Opacity</button>
-    <button class="editor__filter__button" id="hue-rotate">Hue</button>
-    <button class="editor__filter__button" id="constrast">Contrast</button>
-    <button class="editor__filter__button" id="invert">Invert</button>
+    <div class="editor__filter__button" id="gray-scale" style="filter: grayscale(100%);">
+        GrayScale
+    </div>
+    <div class="editor__filter__button" id="blur" style="filter: blur(100%);">
+        Blur
+    </div>
+    <div class="editor__filter__button" id="sepia" style="filter: sepia(100%);">
+        Sepia
+    </div>
+    <div class="editor__filter__button" id="saturate" style="filter: saturate(100%);">
+        Saturate
+    </div>
+    <div class="editor__filter__button" id="opacity" style="filter: opacity(80%);">
+        Opacity
+    </div>
+    <div class="editor__filter__button" id="hue-rotate" style="filter: hue-rotate(100deg);">
+        Hue
+    </div>
+    <div class="editor__filter__button" id="constrast" style="filter: constrast(100%);">
+        Contrast
+    </div>
+    <div class="editor__filter__button" id="invert" style="filter: invert(90%);">
+        Invert
+    </div>
 `;
 
 let currentRotate = 0, widthEditorImage = $previewImage.parentElement.clientWidth, heightEditorImage = $previewImage.parentElement.clientHeight,whoFilterApply= {
@@ -69,7 +85,7 @@ d.addEventListener("input",e => {
     if(e.target.matches("#straightening")){
         
         $previewImage.style.rotate= `${e.target.value}deg`;
-        $previewImage.style.scale= `1.1`;
+        $previewImage.style.scale= `1.4`;
     }
 
     if(e.target.matches("#filter-intensity")){
@@ -81,6 +97,7 @@ d.addEventListener("click", e => {
 
     if (e.target.matches(".editor__close__image")) {
         $previewImage.classList.add("d-none");
+        $previewImage.parentElement.removeAttribute("style");
         $previewImage.src= "";
         $buttonGetFile.classList.remove("d-none");
         $buttonCloseImage.style.display = "none";
@@ -154,10 +171,18 @@ d.addEventListener("click", e => {
         $previewImage.removeAttribute("style");
     }
 
-    $filterImage.querySelectorAll(".editor__filter__button").forEach(button => {
+    let $buttonFilters= $filterImage.querySelectorAll(".editor__filter__button");
+    $buttonFilters.forEach(button => {
+        button.style.backgroundImage= `url(${$previewImage.src})`;
         if(e.target===button){
+            e.target.style.border= "2px solid #EB455F";
+            $buttonFilters.forEach(button => {
+                if(button.hasAttribute("style") && button!==e.target) button.style.border= "none";
+            });
+
             d.querySelector("#filter-intensity").removeAttribute("disabled");
             $previewImage.style.filter= `${whoFilterApply.filter}(${$filterImage.querySelector("#filter-intensity").value}${whoFilterApply.unit})`;
+            
         } 
     });
 
@@ -234,7 +259,7 @@ function previewFile(preview, file) {
         $buttonGetFile.classList.add("d-none");
         preview.classList.remove("d-none");
         $buttonCloseImage.style.display = "block";
-
+        $previewImage.parentElement.style.backgroundColor= "transparent";
     }, false
     );
 

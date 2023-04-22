@@ -139,7 +139,7 @@ body {
     right: 3%;
     top: 3%;
     cursor: pointer;
-    color: var(--light);
+    color: var(--red);
     z-index: 9;
 }
 
@@ -218,8 +218,7 @@ body {
     display: flex;
 }
 
-.editor__arrow__button,
-.editor__filter__button {
+.editor__arrow__button{
     background-color: var(--blue);
     color: var(--light);
     padding: 10px 1.5rem;
@@ -229,11 +228,23 @@ body {
     font-family: inherit;
 }
 
+.editor__filter__button{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    color: var(--light);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .editor__arrow__button:hover,
 .editor__filter__button:hover {
     transform: scale(1.1);
 }
-
 
 
 .fa-arrow-rotate-right {
@@ -255,7 +266,6 @@ body {
 }
 
 .editor__filters :first-child {
-
     grid-column: 1/4;
 }
 
