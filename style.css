@@ -239,6 +239,20 @@ body {
     color: var(--light);
     border-radius: 5px;
     cursor: pointer;
+
+}
+
+.editor__brightness__image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+
+.editor__brightness__image > p{
+    color: var(--blue);
 }
 
 .editor__arrow__button:hover,

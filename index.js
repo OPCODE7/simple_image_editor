@@ -61,6 +61,15 @@ $filterImage.innerHTML+= `
     </div>
 `;
 
+const $brightnessImage= d.createElement("div");
+$brightnessImage.classList.add("editor__brightness__image");
+
+$brightnessImage.innerHTML+= `
+    <p>Brillo de imagen</p>
+    <input type="range"  min="0" max="200" step="1" id="brightness" value="20">
+    <i class="fa-solid fa-reply editor__arrow__button"></i>
+`;
+
 let currentRotate = 0, widthEditorImage = $previewImage.parentElement.clientWidth, heightEditorImage = $previewImage.parentElement.clientHeight,whoFilterApply= {
     filter: "",
     unit:""
@@ -90,6 +99,10 @@ d.addEventListener("input",e => {
 
     if(e.target.matches("#filter-intensity")){
         $previewImage.style.filter= `${whoFilterApply.filter}(${e.target.value}${whoFilterApply.unit})`;
+    }
+
+    if(e.target.matches("#brightness")){
+        $previewImage.style.filter= `brightness(${e.target.value}%)`;
     }
 });
 
@@ -142,6 +155,15 @@ d.addEventListener("click", e => {
 
     if(e.target.matches(".fa-circle-half-stroke")){
         $editorTools.childNodes.forEach(el => $editorTools.removeChild(el));
+        if($previewImage.getAttribute("src").length!==0){
+            $editorTools.appendChild($brightnessImage);
+            $editorTools.querySelector("#brightness").value= "20";
+        }else{
+            $buttonGetFile.classList.add("active__select__image__animation");
+            setTimeout(() => {
+                $buttonGetFile.classList.remove("active__select__image__animation");
+            }, 1000);
+        }
 
     }
 
