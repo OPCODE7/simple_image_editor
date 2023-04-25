@@ -70,10 +70,12 @@ $brightnessImage.innerHTML+= `
     <i class="fa-solid fa-reply editor__arrow__button"></i>
 `;
 
+
+
 let currentRotate = 0, widthEditorImage = $previewImage.parentElement.clientWidth, heightEditorImage = $previewImage.parentElement.clientHeight,whoFilterApply= {
     filter: "",
     unit:""
-};
+}, isFlipped= false, brightness= false;
 
 
 
@@ -92,7 +94,6 @@ d.addEventListener("change", e => {
 
 d.addEventListener("input",e => {
     if(e.target.matches("#straightening")){
-        
         $previewImage.style.rotate= `${e.target.value}deg`;
         $previewImage.style.scale= `1.4`;
     }
@@ -102,6 +103,7 @@ d.addEventListener("input",e => {
     }
 
     if(e.target.matches("#brightness")){
+        brightness= true;
         $previewImage.style.filter= `brightness(${e.target.value}%)`;
     }
 });
@@ -173,7 +175,6 @@ d.addEventListener("click", e => {
         $previewImage.style.rotate = `${currentRotate}deg`;
         $previewImage.style.flexShrink = "0";
         if (currentRotate === 90 || currentRotate === 270) {
-
             $previewImage.style.width = `${heightEditorImage}px`;
             $previewImage.style.height = `${widthEditorImage}px`;
         } else {
@@ -186,27 +187,13 @@ d.addEventListener("click", e => {
 
     if (e.target.matches(".fa-arrows-left-right")) {
         $previewImage.classList.toggle("flip__horizontal__image");
+        isFlipped= true;
     }
 
     if (e.target.matches(".fa-reply")) {
         if ($previewImage.classList.contains("flip__horizontal__image")) $previewImage.classList.remove("flip__horizontal__image");
         $previewImage.removeAttribute("style");
     }
-
-    let $buttonFilters= $filterImage.querySelectorAll(".editor__filter__button");
-    $buttonFilters.forEach(button => {
-        button.style.backgroundImage= `url(${$previewImage.src})`;
-        if(e.target===button){
-            e.target.style.border= "2px solid #EB455F";
-            $buttonFilters.forEach(button => {
-                if(button.hasAttribute("style") && button!==e.target) button.style.border= "none";
-            });
-
-            d.querySelector("#filter-intensity").removeAttribute("disabled");
-            $previewImage.style.filter= `${whoFilterApply.filter}(${$filterImage.querySelector("#filter-intensity").value}${whoFilterApply.unit})`;
-            
-        } 
-    });
 
     if(e.target.matches("#gray-scale")){
         whoFilterApply.filter= "grayscale";
@@ -239,6 +226,43 @@ d.addEventListener("click", e => {
     if(e.target.matches("#invert")){
         whoFilterApply.filter= "invert";
         whoFilterApply.unit= "%";
+    }
+
+    
+    let $buttonFilters= $filterImage.querySelectorAll(".editor__filter__button");
+    $buttonFilters.forEach(button => {
+        button.style.backgroundImage= `url(${$previewImage.src})`;
+        if(e.target===button){
+            e.target.style.border= "2px solid #EB455F";
+            $buttonFilters.forEach(button => {
+                if(button.hasAttribute("style") && button!==e.target) button.style.border= "none";
+            });
+
+            d.querySelector("#filter-intensity").removeAttribute("disabled");
+            $previewImage.style.filter= `${whoFilterApply.filter}(${$filterImage.querySelector("#filter-intensity").value}${whoFilterApply.unit})`;
+        } 
+    });
+
+
+    if(e.target.matches(".fa-floppy-disk")){
+        const $canvas= d.createElement("canvas");
+        const ctx= $canvas.getContext("2d");
+        $canvas.width= $previewImage.naturalWidth;
+        $canvas.height= $previewImage.naturalHeight;
+        ctx.translate($canvas.width / 2, $canvas.height / 2);
+        if(currentRotate!==0) ctx.rotate(currentRotate * Math.PI/180);
+        if(isFlipped) ctx.scale(-1,1);
+        if(brightness) ctx.filter= `brightness(${d.querySelector("#brightness").value}%)`;
+
+        ctx.filter= `${whoFilterApply.filter}(${$filterImage.querySelector("#filter-intensity").value}${whoFilterApply.unit})`;
+        ctx.drawImage($previewImage, -$canvas.width / 2,- $canvas.height / 2,$canvas.width,$canvas.height);
+        // d.body.appendChild($canvas);
+
+
+        const $link= d.createElement("a");
+        $link.download= "image.jpg";
+        $link.href= $canvas.toDataURL();
+        $link.click();
     }
 
 });
