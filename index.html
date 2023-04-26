@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Image Editor</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
@@ -20,15 +20,15 @@
             </div>
         </section>
         <section class="editor__options">
-            <i class="fa-solid fa-crop-simple"></i>
-            <i class="fa-solid fa-brush"></i>
-            <i class="fa-solid fa-circle-half-stroke"></i>
-            <i class="fa-solid fa-floppy-disk"></i>
+            <i class="fa-solid fa-crop-simple options__tool"></i>
+            <i class="fa-solid fa-brush options__tool"></i>
+            <i class="fa-solid fa-circle-half-stroke options__tool"></i>
+            <i class="fa-solid fa-floppy-disk inactive__save_image__button options__tool" disabled></i>
         </section>
         <section class="editor__tools">
 
         </section>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
 </body>
 </html>

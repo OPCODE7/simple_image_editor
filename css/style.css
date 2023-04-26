@@ -106,8 +106,7 @@ body {
     background-color: var(--sky-blue);
 }
 
-
-.editor__options>i {
+.options__tool{
     color: var(--blue);
     cursor: pointer;
     font-size: 1.2rem;
@@ -116,11 +115,21 @@ body {
     margin-right: 1rem;
 }
 
-.editor__options>i:hover {
+.options__tool:hover {
     background-color: var(--red);
     color: var(--light);
     transition: all 1s;
 }
+
+.inactive__save_image__button{
+    color: var(--opacity);
+}
+
+.inactive__save_image__button:hover{
+    background-color: transparent;
+    color: var(--opacity);
+}
+
 
 .editor__tools {
     width: 100%;
@@ -297,6 +306,7 @@ body {
     font-size: 1.1rem;
     grid-column: 4/5;
 }
+
 
 .d-none {
     display: none;
