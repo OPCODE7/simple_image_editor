@@ -342,3 +342,15 @@ body {
 
     }
 }
+
+@media (min-width: 765px){
+    .editor{
+        width: 80%;
+    }
+}
+
+@media(min-width: 1024px){
+    .editor{
+        width: 50%;
+    }
+}

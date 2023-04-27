@@ -10,3 +10,6 @@ export const $modalErrorHandler = d.createElement("div");
 export const $rotateImage = d.createElement("div");
 export const $filterImage = d.createElement("div");
 export const $brightnessImage = d.createElement("div");
+export const $canvas = d.createElement("canvas");
+export const $link = d.createElement("a");
+ 
